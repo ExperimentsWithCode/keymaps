@@ -1,16 +1,13 @@
 /*
 Copyright 2015 Jun Wako <wakojun@gmail.com>
-
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation either version 2 of the License  or
 (at your option) any later version.
-
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
-
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
@@ -42,7 +39,7 @@ extern keymap_config_t keymap_config;
 // Mouse stuff    https://beta.docs.qmk.fm/features/feature_mouse_keys
 #define MOUSEKEY_DELAY             0
 #define MOUSEKEY_INTERVAL          16
-#define MOUSEKEY_MAX_SPEED         10
+#define MOUSEKEY_MAX_SPEED         7
 #define MOUSEKEY_TIME_TO_MAX       40
 
 // Custo KC_GRAVE,m macros
@@ -58,11 +55,12 @@ extern keymap_config_t keymap_config;
 #define GB_RESET     M(5)                       // Git Bash Reset
 #define VS_COLLAPSE  M(6)
 #define SLDTY_FUNC   M(7)                      // Visual studio colapse
+#define UNCLICK_MODS   M(8)                      // sends up code for all mods
 #define CTRL_BSLSH CTL_T(KC_BSLS)
 #define GUI_BSLSH GUI_T(KC_BSLS)
-#define T_WIN TG(_WINDOWS)
-#define T_GM TG(_GAMING)
-#define T_MAIN TO(_QWERTY)
+#define T_WIN DF(_WINDOWS)
+#define T_GM DF(_GAMING)
+#define T_MAIN DF(_QWERTY)
 
 #define SHFT_ESC SFT_T(KC_ESC)
 #define T2_SPC LT(_UTILITY,KC_SPC)
@@ -159,9 +157,9 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * ,------+------+------+------+------+------+------+------+------+------+------+------+------+------+------+------.
     * | ESC  |GB_RES|GB_PST|VS_COL|AM_EXP|AM_COL|      |      |      |      |      |      |      |      |      | Play |
     * |------`------`------`------`------`------`------`------`------`------`------`------`------`------`------`------|
-    * |   Tab   |   ,  |   *  |   +  |   =  |   _  |mouseL|mouseD|mouseU|mouseR|mouseLC|   [  |   ]  |  Bksp    | VolUp|
+    * |   Tab   |   ,  |   *  |   +  |   =  |   _  |      |      |      |      |      |   [  |   ]  |  Bksp    | VolUp|
     * |---------`------`------`------`------`------`------`------`------`------`------`------`------`----------`------|
-    * | GUI/ \   |   .  |   /  |   -  |   =  |   _  | Left | Down | Up   | Right|   (  |   )    |  Enter       | VolDn|
+    * | GUI/ \   |   .  |   /  |   -  |   =  |   _  |      |       |     |      |   (  |   )    |  Enter       | VolDn|
     * |----------`------`------`------`------`------`------`------`------`------`------`--------`--------------`------|
     * | Shift/Esc  |   |  |  `   |   '  |   "  |      |      |      |      |   {  |   }  |   Sft/Up    |mouseU| Mute |
     * |------------`------`------`------`------`-----'-------`------`------`------`------`-------------`-------`------|
@@ -172,22 +170,22 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*,------+------+------+------+------+------+------+------+------+------+------+  ------+ ------+------+  ------+------..*/
         _____, GB_RESET, GB_PASTE, VS_COLLAPSE, EXPAND, COLLAPSE, XXXXX, XXXXX, XXXXX, XXXXX,  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, KC_MPLY, \
       /*,------+------+------    +------      +------+------    +------+------+------+------+------+------ +------+------+------+------..*/
-        _____,       KC_COMM, KC_ASTR, KC_KP_PLUS,  KC_EQUAL,  KC_UNDS, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,  KC_BTN1,   KC_LCBR, KC_RCBR,   _____,  KC__VOLUP, \
+        _____,       KC_COMM, KC_ASTR, KC_PLUS,  KC_EQUAL,  KC_UNDS, XXXXX, XXXXX, XXXXX, XXXXX,  XXXXX,   KC_LCBR, KC_RCBR,   KC_WH_U,  KC__VOLUP, \
         /*|--------- `------`------  `------     `------    `------   `------` ------`------`------`  ------`  ------`  ------`----------`------| */
-        _____,           KC_DOT, KC_SLSH,  KC_MINS,  KC_EQUAL,  KC_UNDS, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,  KC_LPRN, KC_RPRN,  _____,    KC__VOLDOWN,\
+        _____,           KC_DOT, KC_SLSH,  KC_MINS,  KC_EQUAL,  KC_UNDS, XXXXX, XXXXX, XXXXX, XXXXX,  KC_LPRN, KC_RPRN,  KC_WH_D,    KC__VOLDOWN,\
         /*|---------    `------`------  `------   `------    `------   `------   `------  `------  `------`  ------`  ------  `  ------`----------`------| */
-        _____,        KC_PIPE,  KC_GRAVE,  KC_QUOT,  KC_DQT,  XXXXX,  XXXXX, XXXXX, XXXXX  , KC_LCBR, KC_RCBR,    KC_RSFT,  KC_MS_U,  KC_MUTE,\
+        _____,        KC_PIPE,  KC_GRAVE,  KC_QUOT,  KC_DQT,  XXXXX,  XXXXX, XXXXX, XXXXX  , KC_LCBR, KC_RCBR,    KC_BTN1,  KC_MS_U,  KC_MUTE,\
         /*|------------`------`------   `------   `------  `-----  '-------`------`------  `------  `------  `-------------`-------`------| */
-        CTRL_ALT_DEL, _____, _____,                               _____,      KC_BTN2,   KC_BTN1,       KC_MS_L, KC_MS_D, KC_MS_R  \
+        CTRL_ALT_DEL, _____, _____,                              _____,      _____, KC_BTN2,       KC_MS_L, KC_MS_D, KC_MS_R  \
         /*`-------+--------+-------+-----^^^-----------^^^---------^^^------+-------+--------+       +------+-------`------| */
     ),
 
 
     [_BASE_ADJUSTER] = LAYOUT_truefox( \
       /*,------+------+------+------+------+------+------+------+------+------+------+  ------+ ------+------+  ------+------..*/
-        T_MAIN, T_WIN, T_GM , XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, _____, \
+        T_MAIN, T_WIN, T_GM , XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,  XXXXX, XXXXX, XXXXX, XXXXX, UNCLICK_MODS, _____, \
       /*,------+------+------+------+------+------+------+------+------+------+------+------+------+------+------+------..*/
-        XXXXX,       XXXXX,  XXXXX, XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,   XXXXX, XXXXX,   XXXXX,  XXXXX, \
+        XXXXX,       XXXXX,  XXXXX, XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,   XXXXX, XXXXX,   XXXXX,  EEP_RST, \
         /*|--------- `------`------`------`------`------`------`------`------`------`  ------`  ------`  ------`----------`------| */
         XXXXX, XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX,  XXXXX, XXXXX,  XXXXX,    XXXXX,\
         /*|---------    `------`------`------`------`------`------`------`------`------`  ------`  ------`  ------`----------`------| */
@@ -248,6 +246,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                           D(LSHIFT), T(LBRC), U(LSHIFT),
                           D(LSHIFT), T(RBRC), U(LSHIFT),
                           T(LEFT), END );
+          }
+        case 8:
+          if (record->event.pressed){   // Visual Studio Collapse Menus
+          return MACRO( U(LCTRL), U(RCTRL), U(LSHIFT), U(RSHIFT), T(LALT), U(RALT),
+              U(LGUI), U(RGUI), END  );
           }
       }
     return MACRO_NONE;
