@@ -248,7 +248,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                           T(LEFT), END );
           }
         case 8:
-          if (record->event.pressed){   // Visual Studio Collapse Menus
+          if (record->event.pressed){   // Attempt to unstick mods
           return MACRO( U(LCTRL), U(RCTRL), U(LSHIFT), U(RSHIFT), T(LALT), U(RALT),
               U(LGUI), U(RGUI), END  );
           }
