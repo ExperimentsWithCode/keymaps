@@ -20,6 +20,7 @@ enum {
 #define _WINDOWS 4
 #define _LW1 5
 #define _LW2 6
+#define _LW3 7
 #define _ADJUST 16
 
 // Fillers to make layering more clear
@@ -38,6 +39,9 @@ enum {
 #define GB_PASTE    M(4)                       // Git Bash Paste
 #define GB_RESET    M(5)                       // Git Bash Reset
 #define VS_COLLAPSE    M(6)                     // Visual studio colapse
+#define SSD          M(7)                     // Linux Screenshot Display
+#define SSW          M(8)                     // Linux Screenshot Window
+#define SSS          M(9)                     // Linux Screenshot Selection
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -85,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*|--------`-------`--------`--------    `--------`--------`--------`--------`--------`--------`--------`----------------|*/
     _______,  KC_COMM,  KC_SLSH, KC_MINS, KC_KP_EQUAL, KC_UNDS, XXXXXXX,   KC_1,    KC_2,    KC_3,  XXXXXXX,   KC__VOLUP,
 /*|----------`-------`-------- `--------`--------    `--------`--------`--------`--------`--------`--------`---------------|*/
-  SCMD(KC_4),   _______   , _______ ,     _______    ,      _______       , _______ , EXPAND  ,KC__VOLDOWN,    COLLAPSE ),
+  SWIN_T(KC_4),   _______   , _______ ,     _______    ,      _______       , _______ , EXPAND  ,KC__VOLDOWN,    COLLAPSE ),
 /*`---------+---------------+---------+-------^^^------+-------^^^-------+----------+--------+--------   +--------------'*/
 
 /* Raise
@@ -107,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*|---------`-------`--------`-------- `--------`--------`--------`--------`--------`--------`--------`----------------|*/
     _______ , KC_COMM, KC_ASTR, KC_KP_PLUS,  KC_KP_EQUAL,  KC_UNDS, XXXXXXX, XXXXXXX,  TO(4)  , KC_LBRC, KC_RBRC, KC__VOLUP,
 /*|----------`-------`--------`--------    `--------    `--------`--------`-------- `--------   `--------`--------`---------------|*/
-  SCMD(KC_4),   _______     , _______ ,     _______    ,     _______       , _______ , KC_LABK , KC_VOLD,     KC_RABK   ),
+  SWIN_T(KC_4),   _______     , _______ ,     _______    ,     _______       , _______ , KC_LABK , KC_VOLD,     KC_RABK   ),
 /*`---------+---------------+---------+-------^^^------+-------^^^-------+----------+--------+--------+--------------'*/
 
 /* Adjust (Lower + Raise)
@@ -143,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |----------`------`------`------`------`------`------`------`------`------`------`--------|
  * | Shift/Esc |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Sft/Up|
  * |-----------`------`------`------`------`-----'-------`------`------`------`------`-------|
- * |   => { |  Alt/`  |  CTRL  |    L1/Enter  |    L2/Space  |  GUI    | Left | Down | Right  |
+ * |   => { |  Alt/`  |  CTRL  |    L1/Enter  |    L2/Space  |Ctrl+Sft | Left | Down | Right  |
  *  `-------+---------+--------+-----^^^------+-----^^^------+---------+------+------+-------'
  */
 [_WINDOWS] = LAYOUT_arrow(
@@ -154,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*|---------      `-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`----------------|*/
     SFT_T(KC_ESC)  ,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,    RSFT_T(KC_UP)    ,
 /*|----------     `-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`---------------|*/
-    JS_FUNC  ,   ALT_GRV     ,  CTL_T(KC_BSLS) ,  LT(5,KC_ENT)  ,  LT(6,KC_SPC)    ,CTL_T(KC_BSLS), KC_LEFT, KC_DOWN,   KC_RIGHT  ),
+  SWIN_T(KC_4),   ALT_GRV     ,  CTL_T(KC_BSLS) ,  LT(5,KC_ENT)  ,  LT(6,KC_SPC)    ,C_S_T(KC_BSLS), KC_LEFT, KC_DOWN,   KC_RIGHT  ),
 /*`--------- +---------------+---------         +-------^^^------+-------^^^------- +----------+--------+--------+--------------'*/
 
 
@@ -177,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*|--------`-------`--------`--------    `--------`--------`--------`--------`--------`--------`--------`----------------|*/
     _______,  KC_COMM,  KC_SLSH, KC_MINS, KC_KP_EQUAL, KC_UNDS, XXXXXXX,   KC_1,    KC_2,    KC_3,  XXXXXXX,   KC__VOLUP,
 /*|----------`-------`-------- `--------`--------    `--------`--------`--------`--------`--------`--------`---------------|*/
-  SCMD(KC_4),   _______   , _______ ,     _______    ,      _______       , _______ , GB_RESET  ,KC__VOLDOWN,    VS_COLLAPSE ),
+  _______   ,   _______   , _______ ,     _______    ,      _______       , _______ , GB_RESET  ,KC__VOLDOWN,    VS_COLLAPSE ),
 /*`---------+---------------+---------+-------^^^------+-------^^^-------+----------+--------+--------   +--------------'*/
 
 /* Raise WINDOWS
@@ -188,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |----------`------`------`------`------`------`------`------`------`------`------`--------|
  * | Shift/Esc  |  ,   |  *   |  +   |  =   |  _  |       |GBPASTE| MAC |   [  |   ]  |  VolU |
  * |----------- `------`------`------`------`-----'-------`------`------`------`------`-------|
- *| VS_RESET|   Alt/`  |  CRTL  |    L5/Enter  |    L6/Space | C+A+D   |  (   | VolD |    )  |
+ * | CAD    |  Alt/`  |  CRTL  |    L5/Enter  |    L6/Space  | C+A+D   |  (   | VolD |    )  |
  *  `-------+---------+--------+-----^^^------+-----^^^------+---------+------+------+-------'
  */
 [_LW2] = LAYOUT_arrow(
@@ -199,7 +203,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*|---------`-------`--------`-------- `--------`--------`--------`--------`--------`--------`--------`----------------|*/
     _______ , KC_COMM, KC_ASTR, KC_KP_PLUS,  KC_KP_EQUAL,  KC_UNDS, XXXXXXX, GB_PASTE,  TO(0)   , KC_LBRC, KC_RBRC, KC__VOLUP,
 /*|----------`-------`--------`--------    `--------    `--------`--------`-------- `--------   `--------`--------`---------------|*/
-   CTRL_ALT_DEL ,   _______     , _______ ,     _______    ,     _______       , _______ , KC_LABK , KC_VOLD,     KC_RABK   ),
+   CTRL_ALT_DEL ,   _______     , _______ ,     LT(1,_LW3)    ,     _______       , _______ , KC_LABK , KC_VOLD,     KC_RABK   ),
+/*`---------+---------------+---------+-------^^^------+-------^^^-------+----------+--------+--------+--------------'*/
+/* Raise WINDOWS
+ * ,---------+------+------+------+------+------+------+------+------+------+------+---------.
+ * |   ~     |   F1 |   F2 |   F3 |   F4 |   F5 |      |      |      |   (  |   )  |   Del   |
+ * |---------`------`------`------`------`------`------`------`------`------`------`---------|
+ * | GUI/ \   |  F6  |  F7  |  F8  |   F9 |  F10 |      |  SSD | SSW  | SSS  |   }  |   |    |
+ * |----------`------`------`------`------`------`------`------`------`------`------`--------|
+ * | Shift/Esc | F11  |  F12 |  F13 |  F14 |  F15 |       |GBPASTE| MAC |   [  |   ]  |  VolU |
+ * |-----------`------`------`------`------`------'-------`------`------`------`------`-------|
+ *| CTRL_ALT_DEL|   Alt/`  |  CRTL  |    L5/Enter  |    L6/Space | C+A+D   |  <   | VolD |    >  |
+ *  `-------+---------+--------+-----^^^------+-----^^^------+---------+------+------+-------'
+ */
+
+[_LW3] = LAYOUT_arrow(
+/*,--------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------.*/
+   KC_TILD ,  KC_F1,   KC_F2,  KC_F3 ,  KC_F4 , KC_F5  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    KC_DEL       ,
+/*|--------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`-----------------|*/
+    _______ , KC_F6 , KC_F7  , KC_F8   , KC_F9   , KC_F10, XXXXXXX, SSD    , SSW    , SSS    , XXXXXXX,    KC_PIPE     ,
+/*|---------`-------`--------`-------- `--------`--------`--------`--------`--------`--------`--------`----------------|*/
+    _______ , KC_F11 , KC_F12 , KC_F13,  KC_F14, KC_F15 , XXXXXXX, XXXXXXX,  TO(0)   , XXXXXXX, XXXXXXX, KC__VOLUP,
+/*|----------`-------`--------`--------`--------`--------`--------`-------- `--------   `--------`--------`---------------|*/
+   _______ ,   _______     , _______ ,     _______    ,     _______       , _______ , XXXXXXX , KC_VOLD,     XXXXXXX   ),
 /*`---------+---------------+---------+-------^^^------+-------^^^-------+----------+--------+--------+--------------'*/
 
 
@@ -246,6 +272,18 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 6:
           if (record->event.pressed){   // Visual Studio Collapse Menus
           return MACRO( D(LCTRL), T(K), U(LCTRL), D(LCTRL), T(2), U(LCTRL),  END  );
+          }
+        case 7:
+          if (record->event.pressed){   // Linux Screen Shot Whole Screen
+          return MACRO( T(PSCR),  END  );
+          }
+        case 8:
+          if (record->event.pressed){   // Linux Screen Shot Current Window
+          return MACRO( D(LALT), T(PSCR), U(LALT),  END  );
+          }
+        case 9:
+          if (record->event.pressed){   // Linux Screen Shot Selection
+          return MACRO( D(LSHIFT), T(PSCR), U(LSHIFT),  END  );
           }
       }
     return MACRO_NONE;
