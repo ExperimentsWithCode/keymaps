@@ -3,17 +3,14 @@
 
 extern keymap_config_t keymap_config;
 
-enum {
-  LAYER_DANCE0 = 0,
-  LAYER_DANCE1,
-  LAYER_DANCE2
-};
+
+
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-#define _QWERTY 0
+#define _DV 0
 #define _L1 1
 #define _L2 2
 #define _L3 3
@@ -21,8 +18,16 @@ enum {
 #define _LW1 5
 #define _LW2 6
 #define _LW3 7
-#define _TMUX
-#define _ADJUST 16
+#define _TMUX 8
+// #define _ADJUST 16
+
+
+
+// enum {
+//   LAYER_DANCE0 = 0,
+//   LAYER_DANCE1,
+//   LAYER_DANCE2
+// };
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -48,28 +53,16 @@ enum {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Qwerty
- *
- * ,---------+------+------+------+------+------+------+------+------+------+------+---------.
- * |   Tab   |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |  Bksp   |
- * |---------`------`------`------`------`------`------`------`------`------`------`---------|
- * | Ctrl/ \  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |   '    |
- * |----------`------`------`------`------`------`------`------`------`------`------`--------|
- * | Shift/Esc |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Sft/Up |
- * |-----------`------`------`------`------`-----'-------`------`------`------`------`-------|
- * |   => { |  Alt/`  |  GUI   |   Num/Enter  |   Sym/Space  |  GUI    | Left | Down | Right |
- *  `-------+---------+--------+-----^^^------+-----^^^------+---------+------+------+-------'
- */
-[_QWERTY] = LAYOUT_arrow(
-/*,--------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------.*/
-    KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC      ,
-/*|--------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`-----------------|*/
-  CTL_T(KC_BSLS) ,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,    KC_QUOT     ,
-/*|---------      `-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`----------------|*/
-    SFT_T(KC_ESC)  ,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,    RSFT_T(KC_UP)    ,
-/*|----------     `-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`---------------|*/
-    JS_FUNC  ,   ALT_GRV     ,   KC_LGUI ,  LT(1,KC_ENT)  ,  LT(2,KC_SPC)    ,  LT((10, KC_RGUI) , KC_LEFT, KC_DOWN,   KC_RIGHT  ),
-/*`--------- +---------------+---------  +-------^^^------+-------^^^------- +----------+--------+--------+--------------'*/
+// [_QWERTY] = LAYOUT_arrow(
+// /*,--------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------.*/
+//     KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC      ,
+// /*|--------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`-----------------|*/
+//   CTL_T(KC_BSLS) ,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,    KC_QUOT     ,
+// /*|---------      `-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`----------------|*/
+//     SFT_T(KC_ESC)  ,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,    RSFT_T(KC_UP)    ,
+// /*|----------     `-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`---------------|*/
+//     JS_FUNC  ,   ALT_GRV     ,   KC_LGUI ,  LT(1,KC_ENT)  ,  LT(2,KC_SPC)    ,  LT(10, KC_RGUI) , KC_LEFT, KC_DOWN,   KC_RIGHT  ),
+// /*`--------- +---------------+---------  +-------^^^------+-------^^^------- +----------+--------+--------+--------------'*/
 
 
 /* Lower
@@ -205,7 +198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*|---------`-------`--------`-------- `--------`--------`--------`--------`--------`--------`--------`----------------|*/
     _______ , KC_COMM, KC_ASTR, KC_KP_PLUS,  KC_KP_EQUAL,  KC_UNDS, XXXXXXX, GB_PASTE,  TO(0)   , KC_LBRC, KC_RBRC, KC__VOLUP,
 /*|----------`-------`--------`--------    `--------    `--------`--------`-------- `--------   `--------`--------`---------------|*/
-   CTRL_ALT_DEL ,   _______     , _______ ,     LT(_LW3, KC_ENT)    ,     _______       , _______ , KC_LABK , KC_VOLD,     KC_RABK   ),
+   CTRL_ALT_DEL ,   _______     , _______ ,     LT(7, KC_ENT)    ,     _______       , _______ , KC_LABK , KC_VOLD,     KC_RABK   ),
 /*`---------+---------------+---------+-------^^^------+-------^^^-------+----------+--------+--------+--------------'*/
 /* Function WINDOWS
  * ,---------+------+------+------+------+------+------+------+------+------+------+---------.
@@ -241,16 +234,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | C-A-D  |  Alt/`  |  CRTL  |    L5/Enter  |    L6/Space  | C+A+D   | PGUp | END  |  PGDn |
  *  `-------+---------+--------+-----^^^------+-----^^^------+---------+------+------+-------'
  */
-[_TMUX] = LAYOUT_arrow(
-/*,--------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------.*/
-   KC_TILD ,  TMUX ,   XXXXXXX,  XXXXXXX ,  XXXXXXX , XXXXXXX  , XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, TD(TD_PAREN),    KC_DEL       ,
-/*|--------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`-----------------|*/
-    _______ , XXXXXXX, XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX, XXXXXXX, KC_MS_L    , KC_MS_D    , KC_MS_R    , TD(TD_BRACK),    KC_PIPE     ,
-/*|---------`-------`--------`-------- `--------`--------`--------`--------`--------`--------`--------`----------------|*/
-    _______ , XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX , KC_WH_U, TD(TD_CURLY), KC_HOME,
-/*|----------`-------`--------`--------`--------`--------`--------`-------- `--------   `--------`--------`---------------|*/
-   _______ ,   _______     , _______ ,     _______    ,     _______       , _______ , KC_PGUP , KC_END,     KC_PGDOWN   ),
-/*`---------+---------------+---------+-------^^^------+-------^^^-------+----------+--------+--------+--------------'*/
+// [_TMUX] = LAYOUT_arrow(
+// /*,--------+-------+--------+--------+--------+--------+--------+--------+--------+--------+--------+-----------------.*/
+//    KC_TILD ,  TMUX ,   XXXXXXX,  XXXXXXX ,  XXXXXXX , XXXXXXX  , XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, TD(TD_PAREN),    KC_DEL       ,
+// /*|--------`-------`--------`--------`--------`--------`--------`--------`--------`--------`--------`-----------------|*/
+//     _______ , XXXXXXX, XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX, XXXXXXX, KC_MS_L    , KC_MS_D    , KC_MS_R    , TD(TD_BRACK),    KC_PIPE     ,
+// /*|---------`-------`--------`-------- `--------`--------`--------`--------`--------`--------`--------`----------------|*/
+//     _______ , XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX , KC_WH_U, TD(TD_CURLY), KC_HOME,
+// /*|----------`-------`--------`--------`--------`--------`--------`-------- `--------   `--------`--------`---------------|*/
+//    _______ ,   _______     , _______ ,     _______    ,     _______       , _______ , KC_PGUP , KC_END,     KC_PGDOWN   ),
+// /*`---------+---------------+---------+-------^^^------+-------^^^-------+----------+--------+--------+--------------'*/
 
 };
 
@@ -316,8 +309,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     return MACRO_NONE;
 };
 
-
-//Tap Dance
+//
+// // Tap Dance
 // void dance_layers_dance(qk_tap_dance_state_t *state, void *user_data) {
 //   switch (state->count) {
 //   case 1:
@@ -331,7 +324,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 //     break;
 //   }
 // }
-
+//
 // qk_tap_dance_action_t tap_dance_actions[] = {
 //   [LAYER_DANCE0]  = ACTION_TAP_DANCE_DOUBLE(TG(1), TG(2)),
 //   [LAYER_DANCE1]  = ACTION_TAP_DANCE_DOUBLE(TO(0), TG(2)),
