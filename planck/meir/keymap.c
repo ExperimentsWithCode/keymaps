@@ -58,10 +58,12 @@ enum planck_keycodes {
 #define CTL_BSLH     CTL_T(KC_BSLS)
 #define GUI_BSLH     GUI_T(KC_BSLS)
 #define SHF_ESC      SFT_T(KC_ESC)
+#define SHF_ENT      SFT_T(KC_ENT)
+
 
 #define LOWER LT(_LOWER, KC_ENT)
 #define RAISE LT(_RAISE, KC_SPC)
-#define SPECIAL LT(_SPECIAL, KC_SPC)
+#define SPECIAL LT(_SPECIAL, XXXXXXX)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -73,14 +75,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |ShfEsc|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Ctrl | Alt  | GUI  |NumEnt|      Spc    |SymSpc| Left | Down |  Up  |Right |
+ * | Brite| CAD  | Alt  | GUI  |NumEnt|      Spc    |SymSpc| Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
+ *  LCA = Left Control ALT
+ *  SGUI = Left Shift GUI
+ *  CST = Left Control Shift
+ *  MET = Control Shift ALft
  */
 [_QWERTY] = LAYOUT_planck_grid(
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     CTL_BSLH,KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    SHF_ESC, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
-    BACKLIT, SPECIAL, ALT_GRV, KC_LGUI, LOWER, SPECIAL, SPECIAL,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+    SHF_ESC, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SHF_ENT ,
+    BACKLIT, C_A_D, ALT_GRV, KC_LGUI, LOWER, SPECIAL, SPECIAL,  RAISE,   SGUI_T(KC_LEFT), LCA_T(KC_DOWN), C_S_T(KC_UP),   MEH_T(KC_RGHT)
 ),
 
 /* _WINQWER
@@ -93,12 +99,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Brite| GUI  | Alt  | Ctrl |NumEnt|      Spc    |SymSpc| Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
+ *  LCA = Left Control ALT
+ *  SGUI = Left Shift GUI
+ *  CST = Left Control Shift
+ *  MET = Control Shift ALft
  */
 [_WINQWER] = LAYOUT_planck_grid(
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     GUI_BSLH,KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    SHF_ESC, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
-    BACKLIT, KC_LGUI, ALT_GRV, KC_LCTL, LOWER,   SPECIAL,  SPECIAL,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+    SHF_ESC, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SHF_ENT ,
+    BACKLIT, C_A_D, ALT_GRV, KC_LCTL, LOWER,   SPECIAL,  SPECIAL,  RAISE,   SGUI_T(KC_LEFT), LCA_T(KC_DOWN), C_S_T(KC_UP),   MEH_T(KC_RGHT)
 ),
 
 /* Colemak
